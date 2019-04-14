@@ -9,6 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
 
 import org.w3c.dom.Text;
 
@@ -16,61 +17,32 @@ import java.security.acl.Group;
 import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnDoOperation;
-    private EditText editTextFirstOperand;
-    private EditText editTextSecondOperand;
-    private TextView textViewOperationResult;
-    private RadioGroup radioGroupOperations;
-    private RadioButton radioButtonOperationSelected;
+
+    private View btn;
+    private final String  GREETER = "Hello from another acti";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        btn = (Button) findViewById((R.id.buttonMain));
 
-        btnDoOperation = (Button) findViewById(R.id.buttonDoOperation);
-        btnDoOperation.setOnClickListener(new View.OnClickListener() {
+        btn.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                editTextFirstOperand = (EditText) findViewById(R.id.editText4);
-                editTextSecondOperand = (EditText) findViewById(R.id.editText5);
-                textViewOperationResult = (TextView) findViewById(R.id.textView4);
-                radioGroupOperations = (RadioGroup) findViewById(R.id.operationGroup);
-                int radioButtonId = radioGroupOperations.getCheckedRadioButtonId();
-                String operation = getResources().getResourceEntryName(radioButtonId);
-                double first = Double.parseDouble(editTextFirstOperand.getText().toString());
-                double second = Double.parseDouble((editTextSecondOperand.getText().toString()));
-                double result=0;
-                switch (operation){
-                    case "radioButtonPlus":
-                        result = first + second;
-                        break;
-                    case "radioButtonMinus":
-                        result = first - second;
-                        break;
-                    case "radioButtonDivision":
-                        if (second==0){
-                            Toast errorMessage = Toast.makeText(getApplicationContext(),"No es posible dividir entre cero",Toast.LENGTH_LONG);
-                           // errorMessage.setMargin(50,50);
-                            errorMessage.show();
-                        }
-                        else{
-                            result = first/second;
-                        }
-                        break;
-                    case "radioButtonTimes":
-                        result = first*second;
-                        break;
-                    default:
-                        break;
+            public void onClick(View view){
+                //Acceder al segundo activity
+                //y mandarle un string
+                //desde donde estamos a donde vamos le debemos indicar
+                //nuestro contexto a la clase adonde qquiero ir
 
-
-                }
-                textViewOperationResult.setText(String.valueOf(result));
-
+                Intent intent = new Intent(MainActivity.this,SecondActivity.class);
+                //le digo que quiero pasar y con que nomcre (Clave,Valor tipo primitivos y algunos mas)
+                intent.putExtra("greeter",GREETER);
+                //activo el Activity
+                startActivity(intent);
             }
-
-
         });
+
+
 
 
     }
