@@ -77,7 +77,9 @@ public class ThirdActivity extends Activity {
                               Toast.makeText(ThirdActivity.this, "Please enable the permissions for this app", Toast.LENGTH_SHORT).show();
                               Intent i = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                               i.addCategory(Intent.CATEGORY_DEFAULT);
+                              //obtener nombre de nuestro paquete
                               i.setData(Uri.parse("package:"+getPackageName()));
+                              //determina como se comporta nuestra aplicación en cossas como el para atras y eso.
                               i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                               i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                               i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
