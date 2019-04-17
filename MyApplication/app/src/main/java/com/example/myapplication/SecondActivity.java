@@ -21,6 +21,8 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+        //Activar flecha ir atrás.
+          //getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         textView = (TextView) findViewById(R.id.textViewMain);
         btnGoShare = (Button) findViewById(R.id.buttonGoSharing);
         //tomar los datos del intent

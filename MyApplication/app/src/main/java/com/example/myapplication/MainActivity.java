@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //forzzar y cargar icono en el action bar.
+        getSupportActionBar().setIcon(R.mipmap.ic_estacionAPPIcon);
         btn = (Button) findViewById((R.id.buttonMain));
 
         btn.setOnClickListener(new View.OnClickListener(){
