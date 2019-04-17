@@ -106,6 +106,29 @@ public class ThirdActivity extends Activity {
 
             }
         });
+        //boton para la direccoón web
+        //siempre dentro del oncreatew
+        imgBtnWeb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = editTextWeb.getText().toString();
+                if (url!=null && !url.isEmpty()){
+                    Intent intentWeb = new Intent();
+                    intentWeb.setAction(Intent.ACTION_VIEW);
+                    intentWeb.setData(Uri.parse("http://"+url));
+
+
+
+
+
+
+
+                    startActivity(intentWeb);
+
+                }
+
+            }
+        });
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
