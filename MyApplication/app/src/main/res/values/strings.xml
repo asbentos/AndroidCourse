@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="sayHi">Ahora digo hola desde la otra tostada</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>

@@ -13,4 +13,21 @@
         android:text="TextView"
         tools:layout_editor_absoluteX="187dp"
         tools:layout_editor_absoluteY="190dp" />
+
+    <Button
+        android:id="@+id/buttonGoSharing"
+        android:layout_width="240dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="589dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginBottom="94dp"
+        android:background="#e91e63"
+        android:text="Go sharing"
+        android:textColor="#FFF "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 </android.support.constraint.ConstraintLayout>
