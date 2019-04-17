@@ -19,6 +19,7 @@ import java.util.Locale;
 
 public class ThirdActivity extends Activity {
     private final int PHONE_CALL_CODE = 100;
+    private final int PICTURE_FROM_CAMERA = 101;
     //declaro
     private EditText editTextPhone;
     private EditText editTextWeb;
@@ -131,26 +132,70 @@ public class ThirdActivity extends Activity {
                     intentEmailTo.setData(Uri.parse("mailto:"+email));
 
                     //Si queremos enviar un email completo
-                    Intent intentFullEmail = new Intent();
-                    intentFullEmail.setAction(Intent.ACTION_VIEW);
-                    intentFullEmail.setData(Uri.parse(email));
+                    Intent intentFullEmail = new Intent(Intent.ACTION_SEND,Uri.parse(email));
                     intentFullEmail.setType("plan/text");
-                    intentFullEmail.putExtra(Intent.EXTRA_SUBJECT, "Mail title");
-                    intentFullEmail.putExtra(Intent.EXTRA_TEXT, "Un texto");
-                    intentFullEmail.putExtra(Intent.EXTRA_EMAIL, new String [] {"pepe@hotmail.com", "asbentos@hotmail.com}"});
+                    intentFullEmail.putExtra(Intent.EXTRA_SUBJECT, "Hola desde Android");
+                    intentFullEmail.putExtra(Intent.EXTRA_TEXT, "Este es un mensaje automático de estacion APP");
+                    intentFullEmail.putExtra(Intent.EXTRA_EMAIL, new String [] {"pepe@hotmail.com", "asbentos@hotmail.com"});
+
 
                     //Telefono 2 sin permisos requeridos
                     Intent intentPhone = new Intent();
                     intentPhone.setAction(Intent.ACTION_DIAL);
                     intentPhone.setData(Uri.parse("tel:6677888"));
 
+                    try {
+                        //Permite preguntar qeu aplicaicón abre
 
-                    startActivity(intentPhone);
+                       //startActivity(Intent.createChooser(intentFullEmail,"Elige cliente de correo"));
+
+                        //startActivity(intentEmailTo);
+
+                    }
+                    catch (Exception exp){
+                        Toast.makeText(ThirdActivity.this,exp.getMessage().toString(),Toast.LENGTH_LONG).show();
+                    }
 
                 }
 
             }
         });
+        imgBtnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 Intent intentCamera = new Intent("android.media.action.IMAGE_CAPTURE");
+                 try {
+                     //startActivity(intentCamera);
+                     startActivityForResult(intentCamera,PICTURE_FROM_CAMERA);
+                 }
+                 catch (Exception excp){
+                     Toast.makeText(ThirdActivity.this,excp.getMessage().toString(),Toast.LENGTH_LONG).show();
+                 }
+            }
+        });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        switch (requestCode){
+            case PICTURE_FROM_CAMERA:
+                if (resultCode==Activity.RESULT_OK){
+                     String result = data.toUri(0);
+                     // Acá va algo que querramos hacer con la imágen.
+                     Toast.makeText(this,"Result: "+result, Toast.LENGTH_LONG).show();
+
+                }
+                else {
+
+                    Toast.makeText(this,"There was an error with the picture", Toast.LENGTH_LONG).show();
+                }
+                break;
+
+            default:
+                super .onActivityResult(requestCode,resultCode,data);
+
+        }
+
+
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
