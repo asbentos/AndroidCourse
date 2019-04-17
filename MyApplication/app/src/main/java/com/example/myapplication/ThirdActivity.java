@@ -50,7 +50,7 @@ public class ThirdActivity extends Activity {
             @Override
             public void onClick(View v) {
                 String phoneNumber = editTextPhone.getText().toString();
-                if (phoneNumber != null) {
+                if (phoneNumber != null && !phoneNumber.isEmpty()) {
 
                     //comprobar versión actual de Android que ejecutamos en este momento.
                     int actualVersion = Build.VERSION.SDK_INT;
@@ -65,11 +65,14 @@ public class ThirdActivity extends Activity {
                         OlderVersions(phoneNumber);
                     }
                 }
+                else {
+                    Toast.makeText(ThirdActivity.this,"El numero no puede ser vacio",Toast.LENGTH_LONG).show();
+                }
 
             }
             private void OlderVersions(String phoneNumber) {
                 //Versiones de telefono inferior a V6
-                Intent intentCall = new Intent(Intent.ACTION_CALL, Uri.parse("Tel.:" + phoneNumber));
+                Intent intentCall = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
                 //COMNSULTAMOS POR EL PERMISO, definido en el manifest
                 if (CheckPermission(Manifest.permission.CALL_PHONE)) {
                     startActivity(intentCall);
