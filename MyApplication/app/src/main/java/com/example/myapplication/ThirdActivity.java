@@ -113,6 +113,7 @@ public class ThirdActivity extends Activity {
             public void onClick(View v) {
                 String url = editTextWeb.getText().toString();
                 if (url!=null && !url.isEmpty()){
+                    //Mejor forma de inicicializar creo
                     Intent intentWeb = new Intent();
                     intentWeb.setAction(Intent.ACTION_VIEW);
                     intentWeb.setData(Uri.parse("http://"+url));
