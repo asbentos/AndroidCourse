@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.nio.channels.InterruptedByTimeoutException;
 import java.util.Locale;
 
 public class ThirdActivity extends Activity {
@@ -118,13 +119,33 @@ public class ThirdActivity extends Activity {
                     intentWeb.setAction(Intent.ACTION_VIEW);
                     intentWeb.setData(Uri.parse("http://"+url));
 
+                    //Si quremos que llame a un contacto o que llame a la aplicaicón de los contactos
+                    Intent intentContacts = new Intent();
+                    intentContacts.setAction(Intent.ACTION_VIEW);
+                    intentContacts.setData(Uri.parse("content://contacts/people"));
+
+                    //Si quremos enviar un email.
+                    String email = url;
+                    Intent intentEmailTo = new Intent();
+                    intentEmailTo.setAction(Intent.ACTION_SENDTO);
+                    intentEmailTo.setData(Uri.parse("mailto:"+email));
+
+                    //Si queremos enviar un email completo
+                    Intent intentFullEmail = new Intent();
+                    intentFullEmail.setAction(Intent.ACTION_VIEW);
+                    intentFullEmail.setData(Uri.parse(email));
+                    intentFullEmail.setType("plan/text");
+                    intentFullEmail.putExtra(Intent.EXTRA_SUBJECT, "Mail title");
+                    intentFullEmail.putExtra(Intent.EXTRA_TEXT, "Un texto");
+                    intentFullEmail.putExtra(Intent.EXTRA_EMAIL, new String [] {"pepe@hotmail.com", "asbentos@hotmail.com}"});
+
+                    //Telefono 2 sin permisos requeridos
+                    Intent intentPhone = new Intent();
+                    intentPhone.setAction(Intent.ACTION_DIAL);
+                    intentPhone.setData(Uri.parse("tel:6677888"));
 
 
-
-
-
-
-                    startActivity(intentWeb);
+                    startActivity(intentPhone);
 
                 }
 
