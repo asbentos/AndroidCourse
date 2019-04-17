@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.EditText;
@@ -35,10 +36,10 @@ public class ThirdActivity extends Activity {
         imgBtnCamera = (ImageButton) findViewById(R.id.imgBtnCamera);
         imgBtnPhone = (ImageButton) findViewById(R.id.imgBtnPhone);
         //Que quiero hacer!
-
         /*
          *  quermos acción sobre ese botón
-         * cuando se haga click en el telefono queremos una accion
+         *  cuando se haga click en el telefono
+         *  queremos una accion
          *
          */
         imgBtnPhone.setOnClickListener(new View.OnClickListener() {
@@ -51,16 +52,38 @@ public class ThirdActivity extends Activity {
             public void onClick(View v) {
                 String phoneNumber = editTextPhone.getText().toString();
                 if (phoneNumber != null && !phoneNumber.isEmpty()) {
-
                     //comprobar versión actual de Android que ejecutamos en este momento.
                     int actualVersion = Build.VERSION.SDK_INT;
                     int minimalVersionSupported = Build.VERSION_CODES.M;
                     // verifica que estemos en una versión igual o mayor que la más baja
                     // de las que piden permisos al momento de ejecutar.
+                    //chequea los permisos mas bajos
                     if (actualVersion >= minimalVersionSupported) {
-                        //chequea los permisos mas bajos
-                        requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, PHONE_CALL_CODE);
-                        String algo = "Hola";
+                        //COMPROBAR SI YA ACEPTO PERMISOS, NUNCA HACEPTO
+                        if (CheckPermission(Manifest.permission.CALL_PHONE)){
+                            //ha aceptado
+                            Intent i = new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+phoneNumber));
+                            if(ActivityCompat.checkSelfPermission(ThirdActivity.this,Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED) {return;}
+                            startActivity((i));
+                        }
+                        else {
+                            //no ha denegado
+                          if   (!shouldShowRequestPermissionRationale(Manifest.permission.CALL_PHONE)){
+                              //no se ha preguntado aun
+                              requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, PHONE_CALL_CODE);
+                          }
+                          else {
+                              // ha denegado permiso
+                              Toast.makeText(ThirdActivity.this, "Please enable the permissions for this app", Toast.LENGTH_SHORT).show();
+                              Intent i = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                              i.addCategory(Intent.CATEGORY_DEFAULT);
+                              i.setData(Uri.parse("package:"+getPackageName()));
+                              i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                              i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                              i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                              startActivity(i);
+                          }
+                        }
                     } else {
                         OlderVersions(phoneNumber);
                     }
@@ -68,7 +91,6 @@ public class ThirdActivity extends Activity {
                 else {
                     Toast.makeText(ThirdActivity.this,"El numero no puede ser vacio",Toast.LENGTH_LONG).show();
                 }
-
             }
             private void OlderVersions(String phoneNumber) {
                 //Versiones de telefono inferior a V6
