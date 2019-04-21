@@ -11,7 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity {
     List<TheElement> names = new ArrayList<TheElement>() {{
 
         add(new TheElement("Pep",   "000000"));
