@@ -2,6 +2,9 @@ package com.example.listviews;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -14,6 +17,8 @@ public class GridActivity extends AppCompatActivity {
 
     private ArrayList<String> names ;
     private GridView gridView;
+    private int counter =0;
+    MyAdapter myAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,21 +29,7 @@ public class GridActivity extends AppCompatActivity {
             add("Nombrex1");
             add("Nombrex2");
             add("Nombrex3");
-            add("Nombrey1");
-            add("Nombrey2");
-            add("Nombrey3");
-            add("Nombrez1");
-            add("Nombrez2");
-            add("Nombrez3");
-            add("NombreAx1");
-            add("NombreAx2");
-            add("NombreAx3");
-            add("NombreAy1");
-            add("NombreAy2");
-            add("NombreAy3");
-            add("NombreAz1");
-            add("NombreAz2");
-            add("NombreAz3");
+
         }};
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -47,7 +38,31 @@ public class GridActivity extends AppCompatActivity {
             }
         });
 
-        MyAdapter myAdapter = new MyAdapter(this,R.layout.grid_item,names);
+         myAdapter = new MyAdapter(this,R.layout.grid_item,names);
         gridView.setAdapter(myAdapter);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.add_item:
+                //Añadimos un nuevo nobmre a la lista
+                this.names.add("Added number: "+ (++counter ));
+                //Notificamos al adaptador
+                this.myAdapter.notifyDataSetChanged();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+
+
     }
 }
