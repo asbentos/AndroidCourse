@@ -1,2 +1,0 @@
-# AndroidCourse
-Curso Android
