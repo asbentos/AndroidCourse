@@ -17,7 +17,7 @@ public class WordRespository {
     }
     //wrapper para la llamada.
     LiveData<List<Word>> getmAllWords(){
-         return this.mAllWords.;
+         return this.mAllWords;
     }
     //wrapper para la operación insert.
     //NO LLAMAR A ESTA OPERACION DESDE LA UI PORQUE SE CAGA TODO
