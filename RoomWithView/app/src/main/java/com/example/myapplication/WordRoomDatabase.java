@@ -1,10 +1,10 @@
+package com.example.myapplication;
+
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import com.example.myapplication.Word;
-import com.example.myapplication.WordDao;
 // Definir la clase como base de datos.
 // Existen mas opciones para esa anotation.
 @Database(entities = {Word.class}, version=1)
